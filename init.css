@@ -1,0 +1,24 @@
+h1 {
+    color: yellow
+}
+
+.wraper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100px;
+}
+
+.rectangle-red{
+    flex: 1;
+    background: red;
+}
+
+.rectangle-green{
+    flex: 1;
+    background: green;
+}
+.rectangle-blue{
+    flex: 1;
+    background: blue;
+}
