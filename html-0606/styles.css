@@ -1,0 +1,81 @@
+header {
+  display: flex
+}
+
+.logo {
+  flex: 1
+}
+
+.logo a {
+  display: inline-block;
+}
+
+.logo img {
+  width: 300px
+}
+
+.menu {
+  flex: 2;
+  vertical-align: middle;
+  margin-top: 40px;
+}
+
+.nav-group li {
+  display: inline;
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.nav-group li a {
+  text-decoration: none;
+  color: black
+}
+
+.nav-group li a:hover {
+  color: blueviolet
+}
+
+.nav-group {
+  text-align: right
+}
+
+.more-link {
+  display: block;
+  text-align: right;
+  margin-bottom: 10px;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.nav {
+  border-top: 2px solid black
+}
+
+section {
+  display: flex;
+}
+
+article {
+  border: 1px solid gray;
+}
+
+article img {
+  /* width: 300px; */
+}
+
+.distance {
+  margin: 0 10px;
+}
+
+.title {
+  text-decoration: none;
+  text-align: center;
+  display: block
+}
+
+.info {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between
+}
+
