@@ -56,6 +56,8 @@ console.log('Age ', cat.calAge())
 var arr = [1, 2, 4]
 arr.push()
 // arr.pop()
+
+// ForEach method of Array
 arr.forEach((item, index) => {
   console.log('item ' + index + ' ', item)
 })
