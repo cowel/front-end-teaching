@@ -1,0 +1,3 @@
+.carousel-control.right {
+  background-image: -webkit-gradient(linear,left top,right top,from(#ccc),to(blue))
+}
