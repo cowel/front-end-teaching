@@ -81,3 +81,117 @@ var person = function(name, age) {
   this.name = name;
   this.age = age
 }
+
+// Homework todo
+var milSecondDate = 24 * 60 * 60 * 1000
+var getNumberOfDate = function(date) {
+  var today = new Date().valueOf()
+  var valueInputDate = new Date(date).valueOf()
+  return Math.ceil(Math.abs(today - valueInputDate) / milSecondDate)
+}
+
+// is Mon, Tue, Sat
+var checkDay = (date) => {
+  return new Date (date).toUTCString().split(',')[0] === 'Mon' ||
+         new Date (date).toUTCString().split(',')[0] === 'Tue' ||
+         new Date (date).toUTCString().split(',')[0] === 'Sat'
+}
+
+var createListTodos = function() {
+  var listTodos = []
+  var numOfDate = getNumberOfDate(new Date (2018, 5, 1))
+  var dateValueOf = new Date (2018, 5, 1).valueOf()
+  for (var i = 0; i < numOfDate; i++) {
+    var date = dateValueOf + i * milSecondDate
+    var text = ''
+    var isCompleted = false
+    if (checkDay(date)) {
+      text = 'Todo'
+      isCompleted = true
+    } 
+    listTodos.push({
+      id: i,
+      text,
+      isCompleted,
+      date: new Date (date).toISOString()
+    })
+  }
+  return listTodos
+}
+
+var checkToday = function (todos) {
+  var todoToday = todos.pop()
+  return todoToday.text ? true : false
+}
+
+var countTodoOnList = function(todos) {
+  var count = 0
+  todos.forEach(function(todo) {
+    count = todo.isCompleted ? count + 1 : count
+  })
+  return count
+}
+
+var listTodos = createListTodos()
+console.log('list todo ', listTodos)
+console.log('Today has a todo? ', checkToday(listTodos))
+console.log('Count of todos ', countTodoOnList(listTodos))
+
+
+// OOP
+var Person = function(age, name) {
+  this.age = age;
+  this.name = name;
+
+  this.getName = function () {
+    return this.name
+  };
+}
+
+Person.prototype.getAge = function() {
+  return this.age
+}
+
+Person.prototype.getBirthDate = function() {
+  return new Date().getFullYear() - this.age
+}
+
+var obj = {
+  age: 20,
+  name: 'TTT',
+  getName: function() {
+    return this.name
+  }
+}
+
+var myself = new Person(24, 'Hoai')
+
+var you = new Person(20, 'You')
+
+console.log('obj ', obj.getName())
+console.log('myself ', myself)
+console.log('get Name  ', myself.getName())
+console.log('get Age  ', myself.getAge())
+console.log('get BirthDate  ', myself.getBirthDate())
+
+console.log('You get Age  ', you.getAge())
+
+
+var Todo = function (text, isCompleted, date) {
+  this.id = new Date().valueOf();
+  this.text = text;
+  this.isCompleted = isCompleted;
+  this.date = date
+}
+
+var TodoList = function (todoLists) {
+  this.list = todoLists;
+}
+
+TodoList.prototype.createTodoList = function() {
+
+}
+
+var todoList = new TodoList([])
+todoList.createTodoList()
+todoList.list
