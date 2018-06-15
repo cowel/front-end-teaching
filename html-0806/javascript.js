@@ -148,6 +148,7 @@ var Person = function(age, name) {
   };
 }
 
+Person.prototype.weight = 50
 Person.prototype.getAge = function() {
   return this.age
 }
@@ -155,6 +156,7 @@ Person.prototype.getAge = function() {
 Person.prototype.getBirthDate = function() {
   return new Date().getFullYear() - this.age
 }
+
 
 var obj = {
   age: 20,
@@ -165,8 +167,12 @@ var obj = {
 }
 
 var myself = new Person(24, 'Hoai')
+myself.weight = 60
 
 var you = new Person(20, 'You')
+
+console.log('@@@ weight myself ', myself.weight)
+console.log('@@@ weight you ', you.weight)
 
 console.log('obj ', obj.getName())
 console.log('myself ', myself)
@@ -211,3 +217,61 @@ var todoList = new TodoList([])
 todoList.createTodoList()
 console.log('list ', todoList.list)
 console.log('filter  ', todoList.filterCompleted())
+
+
+// Homework
+var Author = function(name, email, gender) {
+  this.id = new Date().valueOf();
+  this.name = name;
+  this.email = email;
+  this.gender = gender;
+}
+
+var Book = function (title, author, price, quantity, isRead, releaseDate ) {
+  this.id = new Date().valueOf();
+  this.title = title; '0' === 0
+  this.author = author;
+  this.price = price;
+  this.quantity = quantity;
+  this.isRead = isRead;
+  this.releaseDate = releaseDate;
+}
+
+var BookShelve = function(books) {
+  this.books = books
+}
+
+var authorName = ['Tue Ninh', 'Duong Thuy', 'Rose Nguyen', 'Nguyen Nhat Anh', 'Duong Thuy']
+var titleBook = ['Se co cach ma', 'Oxford', 'Tuoi tre dang gia bao nhieu', 'Cho toi mot ve di tuoi tho', 'De men phieu luu ky']
+
+BookShelve.prototype.createBookshelve = function(numOfBooks = 5) {
+  var milliSecondDate = 24 * 60 * 60 * 1000
+  for(var i = 0; i < numOfBooks; i++) {
+    const author = new Author(authorName[i], 'abc@com', i % 2)
+    const date = new Date (new Date().valueOf() - i * milliSecondDate).toISOString()
+    const book = new Book(titleBook[i], author, i + 10000, i + 4, (i % 2) ? true : false, date)
+    this.books.push(book)
+  }
+}
+
+BookShelve.prototype.searchBooksByAuthorName = function(name) {
+  return this.books.filter(function(book) {
+    return book.author.name === name
+  })
+}
+
+BookShelve.prototype.updateStatusBook = function(title) {
+  var indexBook = this.books.findIndex(function(book) {
+    return book.title === title
+  })
+  this.books[indexBook].isRead = true
+}
+
+var bookShelve = new BookShelve([])
+bookShelve.createBookshelve()
+bookShelve.updateStatusBook('Se co cach ma')
+
+
+console.log('book shelve ', bookShelve.books)
+console.log('Books of Duong Thuy ', bookShelve.searchBooksByAuthorName('Duong Thuy'))
+console.log('Update book Se co cach ma', bookShelve.books)
