@@ -219,6 +219,12 @@ console.log('list ', todoList.list)
 console.log('filter  ', todoList.filterCompleted())
 
 
+// get Number of 2 days 
+var getNumberOfTwoDays = function(firstDate, lastDate) {
+  var milliSecondDate = 24 * 60 * 60 * 1000
+  return Math.ceil((new Date(lastDate).valueOf() - new Date(firstDate).valueOf()) / milliSecondDate)
+}
+
 // Homework
 var Author = function(name, email, gender) {
   this.id = new Date().valueOf();
@@ -229,7 +235,7 @@ var Author = function(name, email, gender) {
 
 var Book = function (title, author, price, quantity, isRead, releaseDate ) {
   this.id = new Date().valueOf();
-  this.title = title; '0' === 0
+  this.title = title;
   this.author = author;
   this.price = price;
   this.quantity = quantity;
@@ -248,7 +254,7 @@ BookShelve.prototype.createBookshelve = function(numOfBooks = 5) {
   var milliSecondDate = 24 * 60 * 60 * 1000
   for(var i = 0; i < numOfBooks; i++) {
     const author = new Author(authorName[i], 'abc@com', i % 2)
-    const date = new Date (new Date().valueOf() - i * milliSecondDate).toISOString()
+    const date = new Date (new Date().valueOf() - i * milliSecondDate)
     const book = new Book(titleBook[i], author, i + 10000, i + 4, (i % 2) ? true : false, date)
     this.books.push(book)
   }
@@ -267,11 +273,53 @@ BookShelve.prototype.updateStatusBook = function(title) {
   this.books[indexBook].isRead = true
 }
 
+BookShelve.prototype.updatePriceToToday = function() {
+  var newBookShelve = []
+  this.books.forEach(function(book) {
+    if(book.isRead) {
+      var numOfDates = getNumberOfTwoDays(book.releaseDate, new Date())
+      var price = book.price
+      for(var i = 0; i < numOfDates; i++) {
+        price -= price * 0.05
+      }
+      var newBook = new Book(book.title, book.author, parseInt(price), book.quantity, true, new Date())
+      newBookShelve.push(newBook)
+    } else {
+      newBookShelve.push(book)
+    }
+  })
+  this.books = newBookShelve
+}
+
+BookShelve.prototype.removeOldBooks = function(defaultPrice = 8000) {
+  var newBooks = this.books.filter(function(book) {
+    return book.price > defaultPrice
+  })
+  this.books = newBooks
+}
+
+BookShelve.prototype.findCheapestBook = function() {
+  var indexCheapest = 0
+  var numOfBooks = this.books.length
+  var self = this
+  for(var i = 1; i < numOfBooks; i++) {
+    if(this.books[i].price < this.books[indexCheapest].price) {
+      indexCheapest = i
+    }
+  }
+  return this.books[indexCheapest]
+}
+
 var bookShelve = new BookShelve([])
 bookShelve.createBookshelve()
-bookShelve.updateStatusBook('Se co cach ma')
-
-
 console.log('book shelve ', bookShelve.books)
 console.log('Books of Duong Thuy ', bookShelve.searchBooksByAuthorName('Duong Thuy'))
+bookShelve.updateStatusBook('Se co cach ma')
 console.log('Update book Se co cach ma', bookShelve.books)
+bookShelve.updatePriceToToday()
+console.log('Update price ', bookShelve.books)
+bookShelve.removeOldBooks(9000)
+console.log('Remove old books ', bookShelve.books)
+console.log('Oldest book ', bookShelve.findCheapestBook())
+
+
