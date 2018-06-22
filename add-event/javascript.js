@@ -39,6 +39,8 @@ $('div').on('click', '.btn', function() {
   console.log('id ', id)
 })
 
+
+// Test keypress with jquery
 $('div').on('keypress', 'input', function(e) {
   if(e.keyCode === 13) {
     var value = $(this).val()
@@ -47,3 +49,4 @@ $('div').on('keypress', 'input', function(e) {
     $('.wrap-todo').append($(ele))
   }
 })
+
