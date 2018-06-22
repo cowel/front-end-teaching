@@ -7,7 +7,13 @@ var Todo = function(text) {
 }
 
 Todo.prototype.render = function() {
-  $('.all-todos').append('<li>'+ this.text+'</li>')
+  var todoUI = '<div class="todo" data-id="' + this.id + '">' +
+                  '<input type="checkbox" class="checkbox"' +
+                  '<label for="">' + this.text + '</label>' +
+                  '<input type="text" class="input-edit" value="' + this.text + '">' +
+                  '<button type="button">X</button>' +
+                '</div>'
+  $('.all-todos').append(todoUI)
 }
 
 Todo.prototype.editTodo = function(newContent) {
@@ -19,11 +25,18 @@ Todo.prototype.toggleTodo = function(isCompleted) {
 }
 
 var TodoList = function() {
-  this.list = [new Todo('hello')]
+  this.list = []
 }
 
 TodoList.prototype.addTodo = function(todo) {
   this.list.push(todo)
+}
+
+TodoList.prototype.deleteTodo = function(id) {
+  var newTodos = this.list.filter(function(todo) {
+    return todo.id !== id
+  })
+  this.list = newTodos
 }
 
 TodoList.prototype.updateTodoList = function(todo) {
@@ -45,16 +58,33 @@ var TodoListView = function(todoList) {
 }
 
 TodoListView.prototype.handleEvent = function(event, todoList) {
-  if(event === 'addTodo') {
-    $('body').on('keypress', '.input-todo', function(e) {
-      if(e.keyCode === ENTER) {
-        var value = $(this).val();
-        var todo = new Todo(value);
-        todoList.addTodo(todo)
-        todo.render()
-        $(this).val('')
-      }
-    }) 
+  switch (event) {
+    case 'addTodo':
+      $('body').on('keypress', '.input-todo', function(e) {
+        if(e.keyCode === ENTER) {
+          var value = $(this).val();
+          var todo = new Todo(value);
+          todoList.addTodo(todo)
+          todo.render()
+          $(this).val('')
+        }
+      }) 
+      break;
+
+    case 'deleteTodo':
+      $('body').on('click', 'button', function(e) {
+        if(e.keyCode === ENTER) {
+          var value = $(this).val();
+          var todo = new Todo(value);
+          todoList.addTodo(todo)
+          todo.render()
+          $(this).val('')
+        }
+      }) 
+      break;
+  
+    default:
+      break;
   }
 }
 
