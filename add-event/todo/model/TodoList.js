@@ -4,6 +4,11 @@ var TodoList = function() {
 
 TodoList.prototype.addTodo = function(todo) {
   this.list.push(todo)
+  console.log('addTodo ', addTodo)
+  addTodo(JSON.stringify({text: todo.text, isCompleted: false}))
+  .done(function(res) {
+    console.log('add done ', res)
+  })
 }
 
 TodoList.prototype.deleteTodo = function(id) {
@@ -21,10 +26,18 @@ TodoList.prototype.updateTodoList = function(todo) {
 }
 
 TodoList.prototype.render = function() {
-  var listLocal = JSON.parse(localStorage.getItem('todoList')) || []
-  this.list = listLocal
-  this.list.forEach(function(todo) {
-    new Todo(todo.text).render()
+  // var listLocal = JSON.parse(localStorage.getItem('todoList')) || []
+  var callingTodos = getTodo()
+  console.log('callingTodos.status ', callingTodos.state())
+  if(callingTodos.state() === 'pending') {
+    $('.all-todos').append('<p>Loading</p>')
+  }
+  getTodo().done(function(res) {
+    $('p').remove()
+    this.list = res
+    this.list.forEach(function(todo) {
+      new Todo(todo.text).render()
+    })
   })
 }
 

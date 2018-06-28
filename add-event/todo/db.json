@@ -1,0 +1,44 @@
+{
+  "todoList": [
+    {
+      "id": 1,
+      "text": "Today is a nice day",
+      "isCompleted": true
+    },
+    {
+      "id": 2,
+      "text": "Working",
+      "isCompleted": false
+    },
+    {
+      "id": 3,
+      "text": "Working",
+      "isCompleted": false
+    },
+    {
+      "id": 4,
+      "text": "Working",
+      "isCompleted": false
+    },
+    {
+      "id": 5,
+      "text": "Working",
+      "isCompleted": false
+    },
+    {
+      "id": 6,
+      "text": "Working",
+      "isCompleted": false
+    },
+    {
+      "text": "wwqwe",
+      "isCompleted": false,
+      "id": 7
+    },
+    {
+      "text": "sada",
+      "isCompleted": false,
+      "id": 8
+    }
+  ]
+}
