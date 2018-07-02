@@ -4,11 +4,14 @@ import './App.css';
 
 class Header extends Component {
 
+  renderLogo = () => (<img src={logo} className="App-logo" alt='logo' />)
+
   render() {
+    console.log('this.props ', this.props)
     return (
         <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to World cup</h1>
+            {this.renderLogo()}
+            <h1 className="App-title">{this.props.name}</h1>
         </header>
     );
   }
