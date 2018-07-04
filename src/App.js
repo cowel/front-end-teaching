@@ -3,7 +3,8 @@ import './App.css'
 import Header from './Header'
 import Intro from './Intro'
 import NumberHandling from './components/NumberHandling'
-
+import Selector from './components/Selector'
+import Form from './components/Form'
 
 // Stateful component
 class App extends Component {
@@ -21,6 +22,9 @@ class App extends Component {
 
         {/* Render intro */}
         <Intro ratio='5-1'/>
+
+        <Selector />
+        <Form />
       </div>
     );
   }
