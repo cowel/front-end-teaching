@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 
 // Stateless component
 const Intro = (props) => {
-    console.log('props ', props)
     return (
         <div>
             <p className="App-intro">

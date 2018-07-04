@@ -9,13 +9,44 @@ import Form from './components/Form'
 // Stateful component
 class App extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: this.props.initApp
+    }
+    console.log('constructor')
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('nextState ', nextState)
+    console.log('this.props.initApp ', this.props.initApp)
+    return nextState.value !== this.props.initApp
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount')
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+
+  onChange = (event) => {
+    this.setState({value: event.target.value})
+  }
+
+
   render() {
-    console.log('App state ', this.state)
+    console.log('render')
     return (
       <div className="App">
         
         {/* Render header */}
-        <Header name='Hoai' job='Developer' />
+        <Header name={this.state.value} job='Developer' />
+        <input 
+          value={this.state.value}
+          onChange={this.onChange}
+        />
 
         {/* Render up down number */}
         <NumberHandling />

@@ -7,7 +7,6 @@ class Header extends Component {
   renderLogo = () => (<img src={logo} className="App-logo" alt='logo' />)
 
   render() {
-    console.log('this.props ', this.props)
     return (
         <header className="App-header">
             {this.renderLogo()}
