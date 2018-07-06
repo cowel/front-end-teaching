@@ -1,27 +1,16 @@
 import React, { Component } from 'react'
 
 class Selector extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: 'react'
-    }
-  }
-
-  selecting = (event) => {
-    this.setState({value: event.target.value})
-  }
-
   renderOption = () => {
     const data = [{
-      value: 'react',
-      text: 'React'
+      value: 'all',
+      text: 'All'
     }, {
-      value: 'reactNative',
-      text: 'React Native'
+      value: 100000,
+      text: '>= 100000'
     }, {
-      value: 'angular',
-      text: 'Angular2'
+      value: 50000,
+      text: '>= 50000'
     }]
 
     return (
@@ -32,10 +21,10 @@ class Selector extends Component {
   render () {
     return (
       <div>
-        <select onChange={this.selecting}>
+        <select onChange={(event) => this.props.filter(event.target.value)}>
           {this.renderOption()}
         </select>
-        <label>{this.state.value}</label>
+        {/*<label>{this.state.value}</label>*/}
       </div>
     )
   }

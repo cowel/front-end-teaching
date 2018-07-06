@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
 import Header from './Header'
-import Intro from './Intro'
-import NumberHandling from './components/NumberHandling'
 import Selector from './components/Selector'
-import Form from './components/Form'
+import products from './data/products'
 
 // Stateful component
 class App extends Component {
@@ -12,50 +10,33 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: this.props.initApp
+      number: 3,
+      products: products
     }
-    console.log('constructor')
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('nextState ', nextState)
-    console.log('this.props.initApp ', this.props.initApp)
-    return nextState.value !== this.props.initApp
-  }
+  renderProducts = () => (
+    this.state.products.map(product => (
+      <div key={product.id}>
+        <h2>{product.name}</h2>
+        <p style={{color: 'red'}}>{product.price} d</p>
+      </div>
+    ))
+  )
 
-  componentWillMount() {
-    console.log('componentWillMount')
+  filterProducts = (value) => {
+    let filteredProducts = value === 'all' ? products : products.filter(pro => pro.price >= value)
+    this.setState({ products: filteredProducts })   
   }
-
-  componentDidMount() {
-    console.log('componentDidMount')
-  }
-
-  onChange = (event) => {
-    this.setState({value: event.target.value})
-  }
-
 
   render() {
-    console.log('render')
     return (
       <div className="App">
         
-        {/* Render header */}
-        <Header name={this.state.value} job='Developer' />
-        <input 
-          value={this.state.value}
-          onChange={this.onChange}
-        />
-
-        {/* Render up down number */}
-        <NumberHandling />
-
-        {/* Render intro */}
-        <Intro ratio='5-1'/>
-
-        <Selector />
-        <Form />
+        {/* Render number */}
+        <Header />
+        <Selector filter={this.filterProducts}/>
+        {this.renderProducts()}
       </div>
     );
   }
