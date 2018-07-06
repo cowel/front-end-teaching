@@ -3,6 +3,8 @@ import './App.css'
 import Header from './Header'
 import Selector from './components/Selector'
 import products from './data/products'
+import Products from './components/Products'
+import TextInput from './components/TextInput'
 
 // Stateful component
 class App extends Component {
@@ -10,7 +12,6 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      number: 3,
       products: products
     }
   }
@@ -29,14 +30,17 @@ class App extends Component {
     this.setState({ products: filteredProducts })   
   }
 
+  filterByName = (name) => {
+    let filteredProducts = products.filter(product => product.name.includes(name))
+    this.setState({ products: filteredProducts })   
+  }
+
   render() {
     return (
       <div className="App">
-        
-        {/* Render number */}
-        <Header />
+        <TextInput filterText={this.filterByName}/>
         <Selector filter={this.filterProducts}/>
-        {this.renderProducts()}
+        <Products products={this.state.products} />
       </div>
     );
   }
