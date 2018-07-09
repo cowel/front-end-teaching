@@ -6,5 +6,4 @@ const Button = (props) => {
   )
 }
 
-const IconBtn = () => {}
 export default Button

@@ -11,6 +11,7 @@ import Products from './components/Products'
 import TextInput from './components/TextInput'
 import FormProduct from './components/FormProduct'
 import Button from './components/Button'
+import { throws } from 'assert';
 
 // Stateful component
 class App extends Component {
@@ -33,12 +34,18 @@ class App extends Component {
     this.setState({ products: filteredProducts })   
   }
 
-  openForm = () => {
-    this.setState({ isOpenForm: true })
+  handleForm = (isOpen) => {
+    this.setState({ isOpenForm: isOpen })
   }
 
-  closeForm = () => {
-    this.setState({ isOpenForm: false })
+  saveProduct = (product) => {
+    if(!product.id) {
+      product.id = new Date().valueOf()
+    }
+    this.setState(preState => ({
+      products: [product, ...preState.products]
+    }))
+    this.closeForm()
   }
 
   render() {
@@ -46,9 +53,12 @@ class App extends Component {
       <div className="App">
         {
           this.state.isOpenForm ? 
-            <FormProduct backProducts={this.closeForm}/> :
+            <FormProduct 
+              backProducts={() => this.handleForm(false)}
+              saveProduct={this.saveProduct}
+            /> :
             <div>
-              <Button nameBtn='+' onClickBtn={this.openForm} />
+              <Button nameBtn='+' onClickBtn={() => this.handleForm(true)} />
               <TextInput onChangeText={(name) => this.filterByName(name)}/>
               <Selector filter={(value) => this.filterProducts(value)}/>
               <Products products={this.state.products} />
