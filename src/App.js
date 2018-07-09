@@ -1,10 +1,16 @@
+// Libs
 import React, { Component } from 'react'
+
+// Styles
 import './App.css'
-import Header from './Header'
+
+// Components
 import Selector from './components/Selector'
 import products from './data/products'
 import Products from './components/Products'
 import TextInput from './components/TextInput'
+import FormProduct from './components/FormProduct'
+import Button from './components/Button'
 
 // Stateful component
 class App extends Component {
@@ -12,18 +18,10 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      products: products
+      products: products,
+      isOpenForm: false
     }
   }
-
-  renderProducts = () => (
-    this.state.products.map(product => (
-      <div key={product.id}>
-        <h2>{product.name}</h2>
-        <p style={{color: 'red'}}>{product.price} d</p>
-      </div>
-    ))
-  )
 
   filterProducts = (value) => {
     let filteredProducts = value === 'all' ? products : products.filter(pro => pro.price >= value)
@@ -35,12 +33,27 @@ class App extends Component {
     this.setState({ products: filteredProducts })   
   }
 
+  openForm = () => {
+    this.setState({ isOpenForm: true })
+  }
+
+  closeForm = () => {
+    this.setState({ isOpenForm: false })
+  }
+
   render() {
     return (
       <div className="App">
-        <TextInput filterText={this.filterByName}/>
-        <Selector filter={this.filterProducts}/>
-        <Products products={this.state.products} />
+        {
+          this.state.isOpenForm ? 
+            <FormProduct backProducts={this.closeForm}/> :
+            <div>
+              <Button nameBtn='+' onClickBtn={this.openForm} />
+              <TextInput onChangeText={(name) => this.filterByName(name)}/>
+              <Selector filter={(value) => this.filterProducts(value)}/>
+              <Products products={this.state.products} />
+            </div>
+        }
       </div>
     );
   }

@@ -4,7 +4,7 @@ const TextInput = (props) => {
   return (
     <input 
       type='text'
-      onChange={(event) => props.filterText(event.target.value)}
+      onChange={(event) => props.onChangeText(event.target.value)}
     />
   )
 }
