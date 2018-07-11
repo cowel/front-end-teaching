@@ -6,18 +6,13 @@ class FormProduct extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: null,
-      name: '',
-      price: 0,
-      rating: 0
+      ...this.props.editingProduct
     }
   }
 
   changeText = (value, type) => {
     this.setState({ [type]: value })
   }
-
-
 
   renderInput = () => {
     const inputs = [{
@@ -45,6 +40,7 @@ class FormProduct extends Component {
   }
 
   render() {
+    console.log('product ', this.props.editingProduct)
     return (
       <div style={{marginTop: 100}}>
         {this.renderInput()}

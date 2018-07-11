@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
+import Button from './Button'
+import Rating from './Rating'
 
 // Stateless component
 const Products = (props) => {
@@ -8,6 +10,11 @@ const Products = (props) => {
         <div key={product.id}>
           <h2>{product.name}</h2>
           <p style={{color: 'red'}}>{product.price} d</p>
+          <Rating point={product.rating}/>
+          <Button 
+            nameBtn='Edit'
+            onClickBtn={() => props.onClickEdit(product)}
+          />
         </div>
       ))
   )
