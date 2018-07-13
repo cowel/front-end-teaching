@@ -6,6 +6,7 @@ import './App.css'
 
 // Component 
 import Button from './components/Button'
+import TextInput from './components/TextInput'
 
 const increase = {
   type: 'INCREASE',
@@ -14,20 +15,50 @@ const increase = {
 
 // Stateful component
 class App extends Component {  
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: ''
+    }
+  }
+
+  onChangeText = (text) => {
+    this.setState({value: text})
+  }
+
+  renderTodos = () => (
+    this.props.list.map(todo => (
+      <li key={todo.id}>
+        {todo.text}
+        <Button 
+          nameBtn={'Delete'}
+          onClickBtn={() => {
+            this.props.deleteTodo(todo.id)
+          }}
+        />
+      </li>
+    ))
+  )
+
   render() {
-    const store = this.props.store
-    console.log('state ', this.props.store.getState())
+    console.log('this.props ', this.props)
+    const { value } = this.state
     return (
       <div className="App">
-        <label>Clicked <span>{this.props.store.getState()}</span></label>
+        <TextInput 
+          value={value}
+          onChangeText={this.onChangeText}
+        />
         <Button 
           nameBtn={'+'}
-          onClickBtn={() => store.dispatch(increase)}
+          onClickBtn={() => {
+            this.props.addTodo(value)
+            this.setState({value: ''})
+          }}
         />
-        <Button 
-          nameBtn={'-'}
-          onClickBtn={() => {}}
-        />
+        <ul>
+          {this.renderTodos()}
+        </ul>
       </div>
     );
   }
