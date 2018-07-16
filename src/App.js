@@ -8,6 +8,7 @@ import './App.css'
 import Button from './components/Button'
 import TextInput from './components/TextInput'
 
+
 const increase = {
   type: 'INCREASE',
   value: 5 
@@ -28,7 +29,11 @@ class App extends Component {
 
   renderTodos = () => (
     this.props.list.map(todo => (
-      <li key={todo.id}>
+      <li 
+        key={todo.id}
+        onClick={() => this.props.toggleTodo(todo.id)}
+        style={todo.isCompleted ? { textDecoration: 'line-through' } : { textDecoration: 'none' }}
+      >
         {todo.text}
         <Button 
           nameBtn={'Delete'}
@@ -40,8 +45,24 @@ class App extends Component {
     ))
   )
 
+  renderButton = () => {
+    const btns = [{
+      nameBtn: 'All',
+      onClickBtn: () => this.props.filterTodos('ALL')
+    }, {
+      nameBtn: 'Active',
+      onClickBtn: () => this.props.filterTodos('ACTIVE')
+    }, {
+      nameBtn: 'Completed',
+      onClickBtn: () => this.props.filterTodos('COMPLETED')
+    }]
+    return (
+      btns.map(btn => <Button nameBtn={btn.nameBtn} onClickBtn={btn.onClickBtn} />)
+    )
+  }
+
   render() {
-    console.log('this.props ', this.props)
+    console.log('this.props ', this.props.list)
     const { value } = this.state
     return (
       <div className="App">
@@ -59,6 +80,7 @@ class App extends Component {
         <ul>
           {this.renderTodos()}
         </ul>
+        {this.renderButton()}
       </div>
     );
   }
