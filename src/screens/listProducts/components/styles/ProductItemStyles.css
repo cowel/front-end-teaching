@@ -1,0 +1,20 @@
+.product-info,
+.group-btn {
+  display: inline-block;
+
+}
+
+.text {
+  flex: 1;
+  margin: 0
+}
+
+.product-info {
+  flex-direction: column;
+}
+.group-product {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end
+}
+
