@@ -2,15 +2,18 @@ const initialState = {
   list: [{
     id: 0,
     name: 'Laptop',
-    price: 20
+    price: 20,
+    rating: 5
   }, {
     id: 1,
     name: 'Mouse',
-    price: 10
+    price: 10,
+    rating: 4,
   }, {
     id: 2,
     name: 'Keyboard',
-    price: 12
+    price: 12,
+    rating: 3
   }]
 }
 
