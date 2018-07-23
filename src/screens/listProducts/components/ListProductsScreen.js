@@ -9,8 +9,10 @@ export default class ListProductsScreen extends Component {
         key={item.id}
         name={item.name}
         price={item.price}
+        rating={item.rating}
         onClickDelete={() => this.props.deleteProduct(item.id)}
         onClickEdit={()=> this.props.handleOpenForm(item)} 
+        onRating={(point) => this.props.onRating(point, item.id)}
       />
     ))
   }

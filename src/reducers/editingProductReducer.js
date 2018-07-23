@@ -7,6 +7,11 @@ const editingProductReducer = (state = null, action) => {
       }
     case 'CLOSE_FORM':
       return null
+    case 'ON_CHANGE_PRODUCT':
+      return {
+        ...state,
+        [action.productProperty]: action.text
+      }
     default:
       return state
   }

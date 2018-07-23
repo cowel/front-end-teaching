@@ -24,6 +24,22 @@ const productsReducer = (state = initialState, action) => {
         ...state,
         list: state.list.filter(product => product.id !== action.id)
       }
+    case 'EDIT_PRODUCT':
+      return {
+        ...state,
+        list: state.list.map(product => product.id === action.product.id ? action.product : product)
+      }
+    case 'ON_RATING': 
+      return {
+        ...state,
+        list: state.list.map(product => product.id === action.id ? 
+          {
+            ...product,
+            rating: action.point
+          } : 
+          product
+        )
+      }
     default:
       return state
   }

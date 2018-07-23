@@ -20,8 +20,9 @@ class Form extends Component {
       value: editingProduct.rating
     }]
 
-    return inputs.map(input => (
+    return inputs.map((input, index) => (
       <TextInput 
+        key={index}
         label={input.label}
         value={input.value}
         onChangeText={input.onChange}
@@ -30,18 +31,22 @@ class Form extends Component {
   }
 
   render() {
+    const { editingProduct, handleEdit, closeForm } = this.props
     console.log('Form this.props ', this.props)
-    if(this.props.editingProduct) {
+    if(editingProduct) {
       return (
         <div>
           {this.renderInput()}
           <Button 
             nameBtn='Edit'
-            onClickBtn={() => {}}
+            onClickBtn={() => {
+              handleEdit(editingProduct)
+              closeForm()
+            }}
           />
           <Button 
             nameBtn='Cancel'
-            onClickBtn={() => this.props.closeForm()}
+            onClickBtn={() => closeForm()}
           />
         </div>
       )

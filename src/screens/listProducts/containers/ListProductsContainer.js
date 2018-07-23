@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import ListProductsScreen from './../components/ListProductsScreen'
-import { deleteProduct } from './../../../actions/productsType'
+import { deleteProduct, onRating } from './../../../actions/productsType'
 import { handleOpenForm } from './../../../actions/editingProductType'
 
 const mapStateToProps = (state, ownProps) => {
@@ -12,7 +12,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   deleteProduct: (id) => dispatch(deleteProduct(id)),
-  handleOpenForm: (product) => dispatch(handleOpenForm(product))
+  handleOpenForm: (product) => dispatch(handleOpenForm(product)),
+  onRating: (point, id) => dispatch(onRating(point, id))
 })
 
 const ListProductsContainer = connect(mapStateToProps, mapDispatchToProps)(ListProductsScreen)
